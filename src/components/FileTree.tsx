@@ -1,10 +1,10 @@
-import type { FileNode } from "../types";
+import type { FileNode } from "../types/filesystem";
 import TreeNode from "./TreeNode";
 
 interface FileTreeProps {
     data:FileNode;
     selectedNodeId: string | null;
-    onSelectNode: (id: string) => void;
+    onSelectNode: (node: FileNode) => void;
 }
 
 export default function FileTree({ data, selectedNodeId, onSelectNode }: FileTreeProps){

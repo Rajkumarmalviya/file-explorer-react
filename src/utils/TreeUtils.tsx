@@ -1,4 +1,4 @@
-import type { FileNode } from '../types';
+import type { FileNode } from '../types/filesystem';
 
 export function findNodeById(node: FileNode, id: string): FileNode | null {
     if (node.id === id) {
@@ -46,9 +46,19 @@ export function removeNode(parent: FileNode, id: string): boolean {
     return false;
 }
 
-export function renameNode(node: FileNode, newName: string): void {
-    node.name = newName;
-}  
+export function renameNode(node: FileNode,nodeId: string, newName: string): void {
+    if (node.id === nodeId) {
+        node.name = newName;
+        return;
+    }
+
+    if (node.type === 'folder' && node.children) {
+        for (const child of node.children) {
+            renameNode(child, nodeId, newName);
+        }
+    }
+}
+    
 
 export function updateFileContent(node: FileNode, newContent: string): void {
     if (node.type === 'file') {
@@ -57,3 +67,4 @@ export function updateFileContent(node: FileNode, newContent: string): void {
         throw new Error("Cannot update content of a folder. Only files can have content.");
     }
 }   
+

@@ -4,13 +4,13 @@ import {
     ChevronDown, ChevronRight,
     FolderOpen, FileText,
 } from 'lucide-react';
-import type { FileNode } from '../types';
+import type { FileNode } from '../types/filesystem';
 import { useState } from 'react';
 
 interface Props {
     node: FileNode;
     selectedNodeId: string | null;
-    onSelect: (id: string) => void;
+    onSelect: (node: FileNode) => void;
 }
 export default function TreeNode({ node, selectedNodeId, onSelect }: Props) {
 
@@ -21,7 +21,7 @@ export default function TreeNode({ node, selectedNodeId, onSelect }: Props) {
 
     const handleClick = (e: React.MouseEvent) => {
         e.stopPropagation();
-        onSelect(node.id);
+        onSelect(node);
         if (isFolder) {
             setIsOpen(!isOpen);
         }

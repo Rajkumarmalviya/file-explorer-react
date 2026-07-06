@@ -8,3 +8,8 @@ export interface FileNode {
     children?: FileNode[];
     content?: string; // Only for files, not folders
 }
+
+export interface SearchResult {
+    node: FileNode;
+    path: string[]; // Path from the root to the node
+}

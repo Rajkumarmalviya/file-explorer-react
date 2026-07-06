@@ -1,10 +1,10 @@
 
-import type { FileNode } from '../types';
+import type { FileNode } from '../types/filesystem';
 
 interface ContentAreaProps {
     selectedNode: FileNode;
-    onSelectNode: (id: string) => void;
-    onRenameNode: (id: string, newName: string) => void;
+    onSelectNode: (node: FileNode) => void;
+    onRenameNode: (id: string) => void;
     onDeleteNode: (id: string) => void;
 }
 
@@ -27,10 +27,9 @@ export default function ContentArea({ selectedNode, onSelectNode, onRenameNode, 
                     <button
                         className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
                         onClick={() => {
-                            const newName = prompt("Enter new name:", selectedNode.name);
-                            if (newName) {
-                                onRenameNode(selectedNode.id, newName);
-                            }
+                           
+                                onRenameNode(selectedNode.id);
+                        
                         }}
                     >
                         Rename
@@ -57,7 +56,22 @@ export default function ContentArea({ selectedNode, onSelectNode, onRenameNode, 
     } else if (selectedNode.type === 'folder') {
         return (
             <main className="flex-1 p-4">
-                <h2 className="text-lg font-bold mb-2">{selectedNode.name}</h2>
+                {/* rename functionality */}
+                <div
+                    className="flex items-center justify-between mb-2"
+                >
+                    <h2 className="text-lg font-bold mb-2">{selectedNode.name}</h2>
+                    {/* rename */}
+                    <button
+                        className="bg-blue-500 text-white px-2 py-1 rounded mr-2"
+                        onClick={() => {
+                                onRenameNode(selectedNode.id);
+                            
+                        }}
+                    >
+                        Rename
+                    </button>
+                </div>
                 <p>This is a folder. You can add files or folders inside it.</p>
             </main>
         );

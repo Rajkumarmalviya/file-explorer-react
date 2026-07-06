@@ -1,4 +1,4 @@
-import type { FileNode } from '../types';
+import type { FileNode } from '../types/filesystem';
 
 export const initialData: FileNode = {
     type: 'folder',
